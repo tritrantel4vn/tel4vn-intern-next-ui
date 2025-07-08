@@ -113,7 +113,9 @@
 		"script": "Kịch bản gửi tin",
 		"brand_template": "Thương hiệu & Mẫu tin nhắn",
 		"unit_user": "Đơn vị và người dùng",
-		"role": "Phân quyền"
+		"role": "Phân quyền",
+		"brands": "Quản lý thương hiệu",
+		"templates": "Quản lý mẫu tin nhắn"
 	},
 	"profile": {
 		"account_info": "Thông tin tài khoản",

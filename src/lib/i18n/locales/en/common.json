@@ -99,7 +99,9 @@
 		"script": "Script",
 		"brand_template": "Brand Name & Template",
 		"unit_user": "Unit & User",
-		"role": "Role"
+		"role": "Role",
+		"brands": "Manage Brands",
+		"templates": "Manage Message Templates"
 	},
 	"profile": {
 		"account_info": "Account Info",
