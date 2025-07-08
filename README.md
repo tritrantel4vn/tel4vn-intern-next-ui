@@ -1,36 +1,30 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# tel4vn-intern-fe
+🧑‍💻 **Khoá học thực tập - Next.js & Svelte | Intern Training - Next.js & Svelte**
 
-## Getting Started
+📦 **Kho lưu trữ này dành cho các bạn intern thực hành lập trình web với Next.js (React) và Svelte. Bao gồm các bài tập, project mẫu, hướng dẫn cài đặt và tài liệu học tập từ cơ bản đến nâng cao.**
 
-First, run the development server:
+🔹 **Nội dung repo:**
+- Bài tập và project mẫu với Next.js & Svelte
+- Hướng dẫn setup môi trường, cấu trúc dự án
+- Best practices & coding conventions
+- Tài liệu dành riêng cho thực tập sinh
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+🎯 **Đối tượng:**
+- Intern frontend developer
+- Sinh viên đang học hoặc mới bắt đầu với web
+- Người muốn tìm hiểu và so sánh giữa Next.js & Svelte
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+📦 **This repository is for interns to practice web development using Next.js (React) and Svelte. It includes hands-on exercises, sample projects, setup guides, and learning materials from beginner to advanced levels.**
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+🔹**Repo contents:**
+- Practice tasks and sample projects with Next.js & Svelte
+- Step-by-step setup and project structure guides
+- Best practices & coding conventions
+- Intern-friendly documentation
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+🎯 **Target audience:**
+- Frontend development interns
+- Students learning web development
+- Anyone interested in comparing and learning Next.js & Svelte
