@@ -1,0 +1,24 @@
+{
+	"templates_page": {
+		"title": "Mẫu tin nhắn",
+		"template_list": "Danh sách mẫu tin nhắn",
+		"name": "Tên mẫu tin nhắn",
+        "content": "Nội dung mẫu tin nhắn",
+        "created_date": "Ngày tạo",
+		"search_placeholder": "Tìm kiếm mẫu tin nhắn...",
+		"selected_template": "{number} mẫu tin nhắn được chọn",
+		"no_results": "Không tìm thấy mẫu tin nhắn nào phù hợp với tiêu chí tìm kiếm của bạn.",
+		"description": "Mô tả mẫu tin nhắn",
+		"add_new_template": "Thêm mẫu tin nhắn",
+		"search_template": "Tìm kiếm mẫu tin nhắn",
+		"add_template_modal": {
+			"title": "Thêm mẫu tin nhắn"
+		},
+		"delete_template_modal": {
+			"title": "Xóa mẫu tin nhắn",
+			"message": "Bạn có chắc chắn muốn xóa mẫu tin nhắn này? Hành động này không thể hoàn tác.",
+			"confirm_button": "Xóa mẫu tin nhắn",
+			"cancel_button": "Hủy"
+		}
+	}
+}

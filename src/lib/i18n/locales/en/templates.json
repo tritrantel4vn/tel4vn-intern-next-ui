@@ -1,0 +1,25 @@
+{
+	"templates_page": {
+		"title": "Templates",
+		"template_list": "Template list",
+		"name": "Template name",
+        "content": "Template content",
+        "created_date": "Created date",
+		"search_placeholder": "Search for templates...",
+		"selected_template": "{number} templates selected",
+		"no_results": "No templates found matching your search criteria.",
+		"description": "Template description",
+		"add_new_template": "Add new template",
+		"search_template": "Search for templates",
+		"channel": "Sending channel",
+		"add_template_modal": {
+			"title": "Add template"
+		},
+		"delete_template_modal": {
+			"title": "Delete template",
+			"message": "Are you sure you want to delete this template? This action cannot be undone.",
+			"confirm_button": "Delete template",
+			"cancel_button": "Cancel"
+		}
+	}
+}
