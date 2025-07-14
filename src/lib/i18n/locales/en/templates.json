@@ -21,7 +21,7 @@
 		"delete_template_modal": {
 			"title": "Delete template",
 			"message": "Are you sure you want to delete this template? This action cannot be undone.",
-			"confirm_button": "Delete template",
+			"confirm_button": "Delete",
 			"cancel_button": "Cancel"
 		}
 	}

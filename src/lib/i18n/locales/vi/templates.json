@@ -20,7 +20,7 @@
 		"delete_template_modal": {
 			"title": "Xóa mẫu tin nhắn",
 			"message": "Bạn có chắc chắn muốn xóa mẫu tin nhắn này? Hành động này không thể hoàn tác.",
-			"confirm_button": "Xóa mẫu tin nhắn",
+			"confirm_button": "Xóa",
 			"cancel_button": "Hủy"
 		}
 	}
