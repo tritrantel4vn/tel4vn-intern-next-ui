@@ -14,6 +14,9 @@
 		"add_template_modal": {
 			"title": "Thêm mẫu tin nhắn"
 		},
+		"edit_template_modal": {
+			"title": "Chỉnh sửa mẫu tin nhắn"
+		},
 		"delete_template_modal": {
 			"title": "Xóa mẫu tin nhắn",
 			"message": "Bạn có chắc chắn muốn xóa mẫu tin nhắn này? Hành động này không thể hoàn tác.",

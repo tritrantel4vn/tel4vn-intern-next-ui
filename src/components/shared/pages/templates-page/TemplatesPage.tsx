@@ -132,7 +132,7 @@ const TemplatesPage = () => {
                     toast.error(
                         t(`api.${selectedTemplate.id ? "update" : "create"}.failed`, { data: body.name })
                     );
-                    return response; 
+                    return response;
                 }
 
                 handleGetTemplates();
@@ -172,15 +172,15 @@ const TemplatesPage = () => {
     //Handle Delete Template
     const handleDeleteTemplate = useCallback(async () => {
         try {
-            console.log("SELECTED1 ", selectedTemplate)
             const response = await apiDeleteTemplate(selectedTemplate.id);
 
             if (response.code !== "OK") {
-                toast.error(t("api.delete.failed", { data: selectedTemplate.name }));
+                toast(t("api.delete.failed", { data: selectedTemplate.name }));
                 return;
             }
 
             toast.success(t("api.delete.success", { data: selectedTemplate.name }));
+            handleSyncData();
 
             setDeleteTemplateModalOpen(false);
         }
@@ -274,10 +274,13 @@ const TemplatesPage = () => {
                             label: "form.delete",
                             icon: <Trash2 size={16} />,
                             className: "text-danger-500",
-                            onClick: handleDeleteTemplate,
+                            onClick: (row) => {
+                                setSelectedTempate(row as Template);
+                                setDeleteTemplateModalOpen(true);
+                            }
                         },
                     ]}
-                    onSelectRow={(rows) => setSelectedTemplates(rows)} 
+                    onSelectRow={(rows) => setSelectedTemplates(rows)}
                     onSelectAll={handleSelectedAll}
                     onDeselectRow={(rows) => setSelectedTemplates(rows)}
 
@@ -298,12 +301,13 @@ const TemplatesPage = () => {
 
             {addTemplateModalOpen && (
                 <>
-                    {console.log("templateName:", selectedTemplate.name)}
-                    {console.log("templateContent:", selectedTemplate.content)}
-
-                    <AddTemplateModal
+                  <AddTemplateModal
                         brand={selectedTemplate.brand_id}
                         isOpen={addTemplateModalOpen}
+                        isEdit={
+                            selectedTemplate.brand_id.length > 0
+                                ? true : false
+                        }
                         templateContent={selectedTemplate.content}
                         templateName={selectedTemplate.name}
                         onSubmit={handleAddTemplate}
@@ -311,6 +315,23 @@ const TemplatesPage = () => {
                     />
                 </>
             )}
+
+            {deleteTemplateModalOpen && (
+                <>
+                    {deleteTemplateModalOpen && (
+                        <ConfirmModal
+                            isOpen={deleteTemplateModalOpen}
+                            setIsOpen={setDeleteTemplateModalOpen}
+                            title={t("templates_page.delete_template_modal.title")}
+                            confirmLabel={t("templates_page.delete_template_modal.confirm_button")}
+                            cancelLabel={t("templates_page.delete_template_modal.cancel_button")}
+                            onConfirm={handleDeleteTemplate}
+                            onCancel={() => setDeleteTemplateModalOpen(false)}
+                        >
+                            <label>{t("templates_page.delete_template_modal.message")}</label>
+                        </ConfirmModal>
+                    )}
+                </>)}
         </DefaultPageLayout>
     )
 

@@ -14,6 +14,7 @@ import { TextArea } from "@components/shared/atoms";
 
 export interface AddTemplateModalProps {
     isOpen: boolean;
+    isEdit: boolean;
     brand: string;
     templateName: string;
     templateContent: string;
@@ -21,7 +22,7 @@ export interface AddTemplateModalProps {
     onSubmit: (body: TemplateBody) => Promise<any>
 
 }
-const AddTemplateModal = ({ isOpen, setIsOpen, brand, templateName, templateContent, onSubmit }: AddTemplateModalProps) => {
+const AddTemplateModal = ({ isOpen, setIsOpen, isEdit, brand, templateName, templateContent, onSubmit }: AddTemplateModalProps) => {
 
     //Hook
     const t = useTranslations();
@@ -36,8 +37,9 @@ const AddTemplateModal = ({ isOpen, setIsOpen, brand, templateName, templateCont
             brand_id: brand,
             name: templateName,
             content: templateContent,
+            isEdit: isEdit
         };
-    }, [brand,templateName, templateContent]);
+    }, [brand,templateName, templateContent, isEdit]);
 
 
     const validationSchema = useMemo(() => {
@@ -120,6 +122,7 @@ const AddTemplateModal = ({ isOpen, setIsOpen, brand, templateName, templateCont
                     placeholder={t("input.placeholder", { data: t("templates_page.name").toLowerCase() })}
                     onChange={formik.handleChange}
                     errorMessage={formik.errors.name}
+                    value={formik.values.name}
                 />
                 <TextArea
                     name="content"
@@ -127,6 +130,7 @@ const AddTemplateModal = ({ isOpen, setIsOpen, brand, templateName, templateCont
                     placeholder={t("input.placeholder", { data: t("templates_page.content").toLowerCase() })}
                     onChange={formik.handleChange}
                     errorMessage={formik.errors.content}
+                    value={formik.values.content}
                 />
             </form>
         </Modal>

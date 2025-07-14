@@ -51,6 +51,7 @@ export const apiUpdateTemplate = async (id: string, body: TemplateBody) => {
  * @returns ApiResponse<null>
  */
 export const apiDeleteTemplate = async (id: string) => {
+    console.log("ID: ", id)
     return await apiDelete<ApiResponse<null>>({
         token: "",
         url: `${SUB_PATH}/${id}`,
