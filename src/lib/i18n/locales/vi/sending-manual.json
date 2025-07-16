@@ -1,0 +1,17 @@
+{
+	"sending-manual_page": {
+		"title": "Gửi tin thủ công",
+		"channel_list": "Danh sách kênh gửi",
+		"channel":"Kênh gửi",
+		"brand": "Thương hiệu",
+        "template": "Mẫu tin nhắn",
+		"reset": "Đặt lại",
+		"send": "Gửi",
+		"phone_number": "Số điện thoại",
+		"customer_name": "Tên khách hàng",
+		"address": "Địa chỉ",
+		"button" : {
+			"add": "Thêm người nhận"
+		}
+	}
+}

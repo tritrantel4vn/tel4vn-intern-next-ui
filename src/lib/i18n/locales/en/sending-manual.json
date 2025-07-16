@@ -1,0 +1,18 @@
+{
+	"sending-manual_page": {
+		"title": "Sending manual",
+		"channel_list": "Channel list",
+		"channel":"Channel",
+		"brand": "Brand",
+        "template": "Template",
+		"reset": "Reset",
+		"send": "Send",
+		"phone_number": "Phone number",
+		"customer_name": "Customer name",
+		"address": "Address",
+		"button" : {
+			"add": "Add receiver"
+		}
+		
+	}
+}
