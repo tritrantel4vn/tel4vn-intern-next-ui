@@ -8,7 +8,7 @@
 		"reset": "Reset",
 		"send": "Send",
 		"phone_number": "Phone number",
-		"customer_name": "Customer name",
+		"reciever_infor": "Reciever information",
 		"address": "Address",
 		"button" : {
 			"add": "Add receiver"
