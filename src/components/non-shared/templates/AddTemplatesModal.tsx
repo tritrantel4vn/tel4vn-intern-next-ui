@@ -46,15 +46,12 @@ const AddTemplateModal = ({ isOpen, setIsOpen, isEdit, brand, templateName, temp
         return object().shape({
             name: string()
                 .min(2, t("error_message.min_length", { data: 2 }))
-                .max(50, t("error_message.max_length", { data: 50 }))
                 .required(t("error_message.required")),
 
             content: string()
                 .min(2, t("error_message.min_length", { data: 2 }))
-                .max(50, t("error_message.max_length", { data: 50 }))
                 .required(t("error_message.required")),
             brand: string()
-
 
         })
     }, [])
