@@ -101,6 +101,7 @@ const SendingManualPage = () => {
     const handleOnclickReset = (() => {
         setBrandIDs("");
         setSelectedTemplate("");
+        setTemplateVariables([]);
     })
     const updateSendList = (index: number, key: string, value: string) => {
         const updated = [...sendList];
@@ -113,6 +114,20 @@ const SendingManualPage = () => {
             Object.values(row).every(value => value.trim() !== "")
         );
     };
+
+    const getParsedContent = () => {
+    if (!templateContent) return "";
+
+    let parsed = templateContent;
+    templateVariables.forEach(variable => {
+        const value = sendList[0]?.[variable] || "";
+        const rawVariable = `{{${variable}}`
+        const regex = new RegExp(`{{\\s*${variable}\\s*}}`, "g");
+        parsed = parsed.replace(regex, value !== undefined && value!== ""? value : rawVariable);
+    });
+
+    return parsed;
+};
 
 
     return (
@@ -160,6 +175,7 @@ const SendingManualPage = () => {
                     />
                     <RecieverInforTable
                         required
+                        label="sending-manual_page.reciever_infor"
                         templateVariables={templateVariables}
                         sendList={sendList}
                         updateSendList={updateSendList}
@@ -187,7 +203,7 @@ const SendingManualPage = () => {
                     <SMSReview
                         channel="SMS"
                         brandName={selectedBrandName}
-                        messageContent={templateContent}
+                        messageContent={getParsedContent()}
                         phoneNumber={sendList[0]?.phone} />
                 </div>
             </form>
