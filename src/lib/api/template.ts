@@ -10,12 +10,11 @@ const SUB_PATH = "/sns/templates";
  * @returns ApiResponse<Template[]>
  */
 export const apiGetTemplate = async (params: TemplateQueryParams) => {
-    return await apiGet<ApiResponse<Template[]>>({
-        params,
-        token: "",
-        url: SUB_PATH,
-    });
-    
+	return await apiGet<ApiResponse<Template[]>>({
+		params,
+		token: "",
+		url: SUB_PATH,
+	});
 };
 
 /**
@@ -24,11 +23,11 @@ export const apiGetTemplate = async (params: TemplateQueryParams) => {
  * @returns ApiResponse<Template>
  */
 export const apiCreateTemplate = async (body: TemplateBody) => {
-    return await apiPost<ApiResponse<Template>>({
-        body: JSON.stringify(body),
-        token: "",
-        url: SUB_PATH,
-    });
+	return await apiPost<ApiResponse<Template>>({
+		body: JSON.stringify(body),
+		token: "",
+		url: SUB_PATH,
+	});
 };
 
 /**
@@ -38,11 +37,11 @@ export const apiCreateTemplate = async (body: TemplateBody) => {
  * @returns ApiResponse<Template>
  */
 export const apiUpdateTemplate = async (id: string, body: TemplateBody) => {
-    return await apiPut<ApiResponse<Template>>({
-        body: JSON.stringify(body),
-        token: "",
-        url: `${SUB_PATH}/${id}`,
-    });
+	return await apiPut<ApiResponse<Template>>({
+		body: JSON.stringify(body),
+		token: "",
+		url: `${SUB_PATH}/${id}`,
+	});
 };
 
 /**
@@ -51,9 +50,8 @@ export const apiUpdateTemplate = async (id: string, body: TemplateBody) => {
  * @returns ApiResponse<null>
  */
 export const apiDeleteTemplate = async (id: string) => {
-    console.log("ID: ", id)
-    return await apiDelete<ApiResponse<null>>({
-        token: "",
-        url: `${SUB_PATH}/${id}`,
-    });
+	return await apiDelete<ApiResponse<null>>({
+		token: "",
+		url: `${SUB_PATH}/${id}`,
+	});
 };

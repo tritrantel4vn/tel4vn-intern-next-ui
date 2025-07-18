@@ -92,7 +92,7 @@ const SelectForm = ({
 				.filter((option) => currentValue.includes(option.value))
 				.map((option) => ({
 					value: option.value,
-					label: option.noTranslate ? t(option.label):  option.label ,
+					label: option.noTranslate ? option.label : t(option.label),
 				}));
 		};
 	}, [t]);
