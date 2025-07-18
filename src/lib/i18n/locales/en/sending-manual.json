@@ -8,11 +8,14 @@
 		"reset": "Reset",
 		"send": "Send",
 		"phone_number": "Phone number",
-		"reciever_infor": "Reciever information",
+		"receiver_info": "Receiver information",
 		"address": "Address",
 		"button" : {
 			"add": "Add receiver"
+		},
+		"message": {
+			"success": "Send message successfully",
+			"fail" : "Send message fail"
 		}
-		
 	}
 }

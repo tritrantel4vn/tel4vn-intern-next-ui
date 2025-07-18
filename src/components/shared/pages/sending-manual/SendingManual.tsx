@@ -1,214 +1,279 @@
-'use client';
+"use client";
 
-import { BreadcrumbItem } from "@components/shared/atoms/Breadcrumb";
-import { Button, InputForm, SelectForm } from "@components/shared/molecules";
-import { DefaultPageLayout } from "@components/shared/templates";
-import { useTranslations } from "next-intl";
-import { toast } from "react-toastify"
-import { ChangeEvent, useEffect, useState } from "react";
-import { BrandQueryParams } from "@type/api/brand.type";
 import { apiGetBrands } from "@api/brand";
 import { apiGetTemplate } from "@api/template";
-import RecieverInforTable from "@components/shared/non-shared/RecieverInforTable";
 import { SMSReview } from "@components/shared/atoms";
-
+import { Button, SelectForm } from "@components/shared/molecules";
+import ReceiverInfoTable from "@components/shared/non-shared/ReceiverInfoTable";
+import { DefaultPageLayout } from "@components/shared/templates";
+import { BrandQueryParams } from "@type/api/brand.type";
+import { TemplateQueryParams } from "@type/api/template.type";
+import { SelectOption } from "@type/common.type";
+import { useTranslations } from "next-intl";
+import { ChangeEvent, useCallback, useEffect, useState } from "react";
+import { toast } from "react-toastify";
+import { CHANNEL, SENDING_MANUAL_BREADCRUMBS } from "@constants/page/sending_manual-constants";
+import { nanoid } from "nanoid";
 const SendingManualPage = () => {
-    const SENDING_MANUAL_BREADCRUMBS: BreadcrumbItem[] = [
-        {
-            key: "sending-manual_page",
-            label: "sending-manual_page.title"
-        }
-    ];
+	interface TemplateOption extends SelectOption {
+		content: string;
+	}
 
-    //Hook
-    const t = useTranslations();
+	//Hook
+	const t = useTranslations();
 
-    //State
-    const [brandName, setBrandName] = useState<string>("");
-    const [params, setParams] = useState<Record<string, any>>({});
-    const [brands, setBrands] = useState<{ label: string; value: string }[]>([]);
-    const channel = [{
-        label: "SMS",
-        value: "SMS",
-        noTranslate: true,
-    }]
-    const [brandId, setBrandIDs] = useState<string>("");
-    const [templates, setTemplates] = useState<{ label: string; value: string; content: string }[]>([]);
-    const [selectedTemplate, setSelectedTemplate] = useState<string>("");
-    const [templateContent, setTemplateContent] = useState<string>("");
-    const [templateVariables, setTemplateVariables] = useState<string[]>([]);
-    const [sendList, setSendList] = useState<Array<Record<string, string>>>([
-        { phone_number: "" }
-    ]);
-    const selectedBrand = brands.find(b => b.value === brandId);
-    const selectedBrandName = selectedBrand?.label || "";
+	//State
+	const [brandOptions, setBrandOptions] = useState<SelectOption[]>([]);
+	const [brandId, setBrandIDs] = useState<string>("");
+	const [templateOptions, setTemplateOptions] = useState<TemplateOption[]>([]);
+	const [selectedTemplate, setSelectedTemplate] = useState<string>("");
+	const [templateContent, setTemplateContent] = useState<string>("");
+	const [templateVariables, setTemplateVariables] = useState<string[]>([]);
+	const [sendList, setSendList] = useState<Array<Record<string, string> & { _id: string }>>([
+		{ _id: nanoid(), phone_number: "" },
+	]);
 
+	const handleSelectBrandName = () => {
+		const selectedBrand = brandOptions.find((b) => b.value === brandId);
+		const selectedBrandName = selectedBrand?.label || "";
+		return selectedBrandName;
+	};
 
-    useEffect(() => {
-        const fetchBrands = async () => {
-            try {
-                const queryParams: BrandQueryParams = {
-                    ...(brandName && { name: brandName }),
-                    ...params,
-                };
-                const response = await apiGetBrands(queryParams);
-                if (response.code === "OK") {
-                    const options = response.data.map((b) => ({
-                        noTranslate: true,
-                        label: b.name,
-                        value: b.id,
+	/**
+	 * handle Get Brands
+	 */
+	const handleGetBrands = useCallback(async () => {
+		try {
+			const queryParams: BrandQueryParams = {
+				limit: 100,
+				offset: 0,
+			};
 
-                    }));
-                    setBrands(options);
-                } else {
-                    toast.error(t("api.get.failed", { data: t("templates_page.brand").toLowerCase() }));
-                }
-            } catch (error) {
-                toast.error(t("api.get.failed", { data: t("templates_page.brand").toLowerCase() }));
-            }
-        };
+			/**
+			 * const response
+			 * @param queryParams: BrandQueryParams
+			 */
+			const response = await apiGetBrands(queryParams);
+			if (response.code !== "OK") {
+				toast.error(t("api.get.failed", { data: t("templates_page.brand").toLowerCase() }));
+			}
+			const options = response.data.map((brand) => ({
+				value: brand.id,
+				label: brand.name,
+				noTranslate: true,
+			}));
 
-        fetchBrands();
-    }, [brandName, params]);
+			setBrandOptions(options);
+		} catch (error) {
+			toast.error(t("api.get.failed", { data: t("templates_page.brand").toLowerCase() }));
+		}
+	}, []);
 
-    const fetchTemplate = async () => {
-        try {
-            const response = await apiGetTemplate({ ...params })
-            if (response.code === "OK") {
-                const filtered = response.data.filter((temp) => (temp.brand_id === brandId))
-                const options = filtered.map((temp) => ({
-                    noTranslate: true,
-                    value: temp.id,
-                    label: temp.name,
-                    content: temp.content,
-                }));
-                setTemplates(options)
-            }
-            else {
-                toast.error(t("api.get.failed", { data: t("templates_page.brand").toLowerCase() }));
-            }
-        }
-        catch (error) {
-            toast.error(t("api.get.failed", { data: t("templates_page.brand").toLowerCase() }));
-        }
-    };
-    useEffect(() => {
-        if (brandId) {
-            fetchTemplate();
-        }
-    }, [brandId]);
+	useEffect(() => {
+		handleGetBrands();
+	},[]);
 
-    const handleOnclickReset = (() => {
-        setBrandIDs("");
-        setSelectedTemplate("");
-        setTemplateVariables([]);
-    })
-    const updateSendList = (index: number, key: string, value: string) => {
-        const updated = [...sendList];
-        updated[index][key] = value;
-        setSendList(updated);
-    };
+	/**
+	 * Handle Get Templates
+	 */
+	const handleGetTemplates = async () => {
+		try {
+			const queryParams: TemplateQueryParams = {
+				limit: 100,
+				offset: 0,
+			};
+			/**
+			 * const response
+			 * @param queryParams: TemplateQueryParams
+			 */
+			const response = await apiGetTemplate(queryParams);
+			if (response.code !== "OK") {
+				toast.error(t("api.get.failed", { data: t("templates_page.brand").toLowerCase() }));
+			}
 
-    const isSendListValid = () => {
-        return sendList.every(row =>
-            Object.values(row).every(value => value.trim() !== "")
-        );
-    };
+			const filtered = response.data.filter((template) => template.brand_id === brandId);
+			const options = filtered.map((template) => ({
+				noTranslate: true,
+				value: template.id,
+				label: template.name,
+				content: template.content,
+			}));
+			setTemplateOptions(options);
+		} catch (error) {
+			toast.error(t("api.get.failed", { data: t("templates_page.brand").toLowerCase() }));
+		}
+	};
 
-    const getParsedContent = () => {
-    if (!templateContent) return "";
+	useEffect(() => {
+		if (brandId) {
+			handleGetTemplates();
+		}
+	}, [brandId]);
 
-    let parsed = templateContent;
-    templateVariables.forEach(variable => {
-        const value = sendList[0]?.[variable] || "";
-        const rawVariable = `{{${variable}}`
-        const regex = new RegExp(`{{\\s*${variable}\\s*}}`, "g");
-        parsed = parsed.replace(regex, value !== undefined && value!== ""? value : rawVariable);
-    });
+	/**
+	 * Handle On Click Reset
+	 */
+	const handleOnclickReset = () => {
+		setBrandIDs("");
+		setSelectedTemplate("");
+		setTemplateVariables([]);
+	};
 
-    return parsed;
+	/**
+	 * Update Send List
+	 * @param key : string
+	 * @param index : number
+	 * @param value : string
+	 */
+	const updateSendList = (index: number, key: string, value: string) => {
+		const updated = [...sendList];
+		updated[index][key] = value;
+		setSendList(updated);
+	};
+
+	/**
+	 * Is Send List Valid
+	 * @returns : boolean
+	 */
+	const isSendListValid = () => {
+		const isSendListValid = sendList.every((row) =>
+			Object.values(row).every((value) => value.trim() !== "")
+		);
+		return isSendListValid;
+	};
+
+	/**
+	 * Handle Get Parsed Content
+	 * @returns: string
+	 */
+	const handleGetParsedContent = () => {
+		if (!templateContent) return "";
+
+		let parsed = templateContent;
+		templateVariables.forEach((variable) => {
+			const rawVariable = `{{${variable}}`;
+			const value = sendList[0]?.[variable] || "";
+			const regex = new RegExp(`{{\\s*${variable}\\s*}}`, "g");
+			parsed = parsed.replace(regex, value !== undefined && value !== "" ? value : rawVariable);
+		});
+		return parsed;
+	};
+
+	/**
+	 * Handle On Change Select Brand
+	 * @param event ChangeEvent<HTMLSelectElement>
+	 */
+	const handleOnChangeSelectBrand = (event: ChangeEvent<HTMLSelectElement>) => {
+		setBrandIDs(event.target.value);
+	};
+
+	/**
+	 * Handle On Change Select Template
+	 * @param event : ChangeEvent<HTMLSelectElement>
+	 */
+	const handleOnChangeSelectTemplate = (event: ChangeEvent<HTMLSelectElement>) => {
+		const selectedId = event.target.value;
+		setSelectedTemplate(selectedId);
+
+		const selected = templateOptions.find(
+			(template) => template.value === selectedId
+		) as TemplateOption;
+
+		const content = selected?.content || "";
+		setTemplateContent(content);
+
+		const variables =
+			content.match(/{{(.*?)}}/g)?.map((variable) => variable.replace(/{{|}}/g, "")) || [];
+		setTemplateVariables(variables);
+
+		const newRow: Record<string, string> & { _id: string } = { _id: nanoid(), phone: "" };
+		variables.forEach((variable) => (newRow[variable] = ""));
+		setSendList([newRow]);
+	};
+
+    /**
+     * 
+     * @param e React.FormEvent<HTMLFormElement>
+     * @returns 
+     */
+    const handleOnSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+	e.preventDefault();
+
+	if (!isSendListValid()) {
+		toast.error(t("error_message.invalid_data"));
+		return;
+	}
+
+	toast.success(t("sending-manual_page.message.success"));
+
+	handleOnclickReset();
 };
 
 
-    return (
-        <DefaultPageLayout breadcrumbs={SENDING_MANUAL_BREADCRUMBS}>
-            <form className="flex items-start gap-4">
-                <div className=" flex w-8/12 flex-col gap-4">
-                    <SelectForm
-                        disabled
-                        options={channel}
-                        label={"sending-manual_page.channel"}
-                    />
+	return (
+		<DefaultPageLayout breadcrumbs={SENDING_MANUAL_BREADCRUMBS}>
+			<form className="flex items-start gap-4" onSubmit={handleOnSubmit}>
+				<div className="flex w-8/12 flex-col gap-4">
+					{/* Area: Select channel */}
+					<SelectForm disabled options={CHANNEL} label={"sending-manual_page.channel"} />
 
-                    <SelectForm
-                        options={brands}
-                        label={"sending-manual_page.brand"}
-                        value={brandId}
-                        placeholder={t("select.placeholder", { data: t("sending-manual_page.brand").toLowerCase() })}
-                        onChange={(event: ChangeEvent<HTMLSelectElement>) => setBrandIDs(event.target.value)}
-                    />
+					{/* Area: Select Brand */}
+					<SelectForm
+						value={brandId}
+						options={brandOptions}
+						label={"sending-manual_page.brand"}
+						placeholder={t("select.placeholder", {
+							data: t("sending-manual_page.brand").toLowerCase(),
+						})}
+						onChange={handleOnChangeSelectBrand}
+					/>
 
-                    <SelectForm
-                        options={templates}
-                        label={"sending-manual_page.template"}
-                        value={selectedTemplate}
-                        placeholder={t("select.placeholder", { data: t("sending-manual_page.template").toLowerCase() })}
-                        errorMessage={(brandId.length > 0 && selectedTemplate.length === 0) ? t("error_message.required") : ""}
-                        onChange={(event: ChangeEvent<HTMLSelectElement>) => {
-                            const selectedId = event.target.value;
-                            setSelectedTemplate(selectedId);
+					{/* Area: Select Template */}
+					<SelectForm
+						value={selectedTemplate}
+						options={templateOptions}
+						label={"sending-manual_page.template"}
+						placeholder={t("select.placeholder", {
+							data: t("sending-manual_page.template").toLowerCase(),
+						})}
+						errorMessage={brandId && !selectedTemplate ? t("error_message.required") : ""}
+						onChange={handleOnChangeSelectTemplate}
+					/>
 
-                            const selected = templates.find(t => t.value === selectedId);
-                            const content = selected?.content || "";
-                            setTemplateContent(content);
+					{/* Area: Receiver Info Table */}
+					{selectedTemplate && (
+						<ReceiverInfoTable
+							required
+							sendList={sendList}
+							templateVariables={templateVariables}
+							label="sending-manual_page.receiver_info"
+							setSendList={setSendList}
+							updateSendList={updateSendList}
+						/>
+					)}
 
-                            // Extract variables from template
-                            const variables = content.match(/{{(.*?)}}/g)?.map(v => v.replace(/{{|}}/g, "")) || [];
-                            setTemplateVariables(variables);
+					{/* Area: Button */}
+					<div className="mt-10 flex justify-end gap-2">
+						<Button variant="danger" outline type="reset" onClick={handleOnclickReset}>
+							{t("sending-manual_page.reset")}
+						</Button>
 
-                            // Init sendList with 1 row
-                            const newRow: Record<string, string> = { phone: "" };
-                            variables.forEach((v) => newRow[v] = "");
-                            setSendList([newRow]);
-                        }}
-
-                    />
-                    <RecieverInforTable
-                        required
-                        label="sending-manual_page.reciever_infor"
-                        templateVariables={templateVariables}
-                        sendList={sendList}
-                        updateSendList={updateSendList}
-                        setSendList={setSendList}
-                    />
-
-                    <div className="mt-10 flex justify-end gap-2">
-                        <Button
-                            variant="danger"
-                            outline
-                            type="reset"
-                            onClick={handleOnclickReset}>
-                            {t("sending-manual_page.reset")}
-                        </Button>
-
-                        <Button
-                            type="submit"
-                            disabled={!isSendListValid()}
-                        >
-                            {t("sending-manual_page.send")}
-                        </Button>
-                    </div>
-                </div>
-                <div className="w-4/12">
-                    <SMSReview
-                        channel="SMS"
-                        brandName={selectedBrandName}
-                        messageContent={getParsedContent()}
-                        phoneNumber={sendList[0]?.phone} />
-                </div>
-            </form>
-
-        </DefaultPageLayout>
-    )
+						<Button type="submit" disabled={!isSendListValid()} >
+							{t("sending-manual_page.send")}
+						</Button>
+					</div>
+				</div>
+				<div className="w-4/12">
+					{/* Area: SMS Review */}
+					<SMSReview
+						channel="SMS"
+						phoneNumber={sendList[0]?.phone}
+						branchName={handleSelectBrandName()}
+						messageContent={handleGetParsedContent()}
+					/>
+				</div>
+			</form>
+		</DefaultPageLayout>
+	);
 };
 export default SendingManualPage;

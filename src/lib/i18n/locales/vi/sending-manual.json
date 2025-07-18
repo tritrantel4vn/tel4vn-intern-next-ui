@@ -8,10 +8,14 @@
 		"reset": "Đặt lại",
 		"send": "Gửi",
 		"phone_number": "Số điện thoại",
-		"reciever_infor": "Thông tin người nhận",
+		"receiver_info": "Thông tin người nhận",
 		"address": "Địa chỉ",
 		"button": {
 			"add": "Thêm người nhận"
+		},
+		"message": {
+			"success": "Gửi tin thành công",
+			"fail" : "Gửi tin thất bại"
 		}
 	}
 }
