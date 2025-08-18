@@ -1,5 +1,5 @@
 import { ApiResponse } from "@type/api.type";
-import { Template,  TemplateQueryParams } from "@type/api/template.type";
+import { Template, TemplateBody, TemplateQueryParams } from "@type/api/template.type";
 import { apiDelete, apiGet, apiPost, apiPut } from "@utils/config-api";
 
 const SUB_PATH = "/sns/templates";
@@ -10,26 +10,23 @@ const SUB_PATH = "/sns/templates";
  * @returns ApiResponse<Template[]>
  */
 export const apiGetTemplate = async (params: TemplateQueryParams) => {
-    return await apiGet<ApiResponse<Template[]>>({
-        params,
-        token: "",
-        url: SUB_PATH,
-    });
-    
-};
+	return await apiGet<ApiResponse<Template[]>>({
+		params,
+		token: "",
+		url: SUB_PATH,
+	});
 
 /**
  * API create template
  * @param body Template
  * @returns ApiResponse<Template>
  */
-export const apiCreateTemplate = async (body: Template) => {
-    return await apiPost<ApiResponse<Template>>({
-        body: JSON.stringify(body),
-        token: "",
-        url: SUB_PATH,
-    });
-};
+export const apiCreateTemplate = async (body: TemplateBody) => {
+	return await apiPost<ApiResponse<Template>>({
+		body: JSON.stringify(body),
+		token: "",
+		url: SUB_PATH,
+	});
 
 /**
  * API update template
@@ -37,13 +34,12 @@ export const apiCreateTemplate = async (body: Template) => {
  * @param body TemplateBody
  * @returns ApiResponse<Template>
  */
-export const apiUpdateTemplate = async (id: string, body: Template) => {
-    return await apiPut<ApiResponse<Template>>({
-        body: JSON.stringify(body),
-        token: "",
-        url: `${SUB_PATH}/${id}`,
-    });
-};
+export const apiUpdateTemplate = async (id: string, body: TemplateBody) => {
+	return await apiPut<ApiResponse<Template>>({
+		body: JSON.stringify(body),
+		token: "",
+		url: `${SUB_PATH}/${id}`,
+	});
 
 /**
  * API delete template
@@ -51,9 +47,8 @@ export const apiUpdateTemplate = async (id: string, body: Template) => {
  * @returns ApiResponse<null>
  */
 export const apiDeleteTemplate = async (id: string) => {
-    console.log("ID: ", id)
-    return await apiDelete<ApiResponse<null>>({
-        token: "",
-        url: `${SUB_PATH}/${id}`,
-    });
+	return await apiDelete<ApiResponse<null>>({
+		token: "",
+		url: `${SUB_PATH}/${id}`,
+	});
 };
