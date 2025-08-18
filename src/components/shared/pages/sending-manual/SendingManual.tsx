@@ -55,7 +55,7 @@ const SendingManualPage = () => {
 			 */
 			const response = await apiGetBrands(queryParams);
 			if (response.code !== "OK") {
-				toast.error(t("api.get.failed", { data: t("templates_page.brand").toLowerCase() }));
+				toast.error(t("api.get.failed", { data: t("sending-manual_page.brand").toLowerCase() }));
 			}
 			const options = response.data.map((brand) => ({
 				value: brand.id,
@@ -65,7 +65,7 @@ const SendingManualPage = () => {
 
 			setBrandOptions(options);
 		} catch (error) {
-			toast.error(t("api.get.failed", { data: t("templates_page.brand").toLowerCase() }));
+			toast.error(t("api.get.failed", { data: t("sending-manual_page.brand").toLowerCase() }));
 		}
 	}, []);
 
@@ -88,7 +88,7 @@ const SendingManualPage = () => {
 			 */
 			const response = await apiGetTemplate(queryParams);
 			if (response.code !== "OK") {
-				toast.error(t("api.get.failed", { data: t("templates_page.brand").toLowerCase() }));
+				toast.error(t("api.get.failed", { data: t("sending-manual_page.brand").toLowerCase() }));
 			}
 
 			const filtered = response.data.filter((template) => template.brand_id === brandId);
@@ -100,7 +100,7 @@ const SendingManualPage = () => {
 			}));
 			setTemplateOptions(options);
 		} catch (error) {
-			toast.error(t("api.get.failed", { data: t("templates_page.brand").toLowerCase() }));
+			toast.error(t("api.get.failed", { data: t("sending-manual_page.brand").toLowerCase() }));
 		}
 	};
 
