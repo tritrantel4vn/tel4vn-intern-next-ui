@@ -15,7 +15,6 @@ export const apiGetTemplate = async (params: TemplateQueryParams) => {
 		token: "",
 		url: SUB_PATH,
 	});
-};
 
 /**
  * API create template
@@ -28,7 +27,6 @@ export const apiCreateTemplate = async (body: TemplateBody) => {
 		token: "",
 		url: SUB_PATH,
 	});
-};
 
 /**
  * API update template
@@ -42,7 +40,6 @@ export const apiUpdateTemplate = async (id: string, body: TemplateBody) => {
 		token: "",
 		url: `${SUB_PATH}/${id}`,
 	});
-};
 
 /**
  * API delete template

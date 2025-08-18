@@ -7,17 +7,17 @@ import {
 	ZNSPreviewDark,
 	ZNSPreviewLight,
 } from "@/public/images";
+import Image from "next/image";
 import { ZOA } from "@/public/svg";
 import parse from "html-react-parser";
-import { LucideChevronRight } from "lucide-react";
 import { useTranslations } from "next-intl";
-import Image from "next/image";
+import { LucideChevronRight } from "lucide-react";
 
 export interface SMSReviewProps {
-	branchName?: string;
-	messageContent?: string;
 	channel: string;
+	branchName?: string;
 	phoneNumber?: string;
+	messageContent?: string;
 }
 
 /**
@@ -26,6 +26,7 @@ export interface SMSReviewProps {
  */
 
 const SMSReview = ({ channel, branchName, messageContent, phoneNumber }: SMSReviewProps) => {
+	
 	// Hooks
 	const t = useTranslations();
 

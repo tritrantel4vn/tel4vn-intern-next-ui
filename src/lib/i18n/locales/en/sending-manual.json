@@ -1,0 +1,21 @@
+{
+	"sending-manual_page": {
+		"title": "Sending manual",
+		"channel_list": "Channel list",
+		"channel":"Channel",
+		"brand": "Brand",
+        "template": "Template",
+		"reset": "Reset",
+		"send": "Send",
+		"phone_number": "Phone number",
+		"receiver_info": "Receiver information",
+		"address": "Address",
+		"button" : {
+			"add": "Add receiver"
+		},
+		"message": {
+			"success": "Send message successfully",
+			"fail" : "Send message fail"
+		}
+	}
+}

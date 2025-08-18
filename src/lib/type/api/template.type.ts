@@ -13,3 +13,4 @@ export type TemplateBody = {
 
 
 export type Template = TemplateBody & AuditInfo;
+
