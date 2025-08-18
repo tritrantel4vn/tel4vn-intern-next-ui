@@ -29,16 +29,16 @@ const AppLayoutTemplate = ({ children }: AppLayoutTemplateProps) => {
 			groups: [
 				{
 					icon: "UserRound",
-					id: "customers",
-					groupId: "customers",
-					label: "sidebar.customers",
+					id: "brands",
+					groupId: "brands",
+					label: "sidebar.brands",
 					href: "/brands",
 				},
 				{
 					icon: "Rocket",
-					id: "campaign",
-					groupId: "campaign",
-					label: "sidebar.campaigns",
+					id: "templates",
+					groupId: "templates",
+					label: "sidebar.templates",
 					href: "/templates",
 				},
 				{
