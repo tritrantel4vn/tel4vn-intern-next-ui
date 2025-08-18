@@ -10,7 +10,7 @@ import Icon from "../atoms/Icon";
 import Tooltip from "../atoms/Tooltip";
 
 export type InputType = "text" | "password" | "email" | "number" | "tel" | "url";
-type InputState = "default" | "error" | "success" | "warning";
+type InputState = "default" | "error" | "success" | "warning" | "transparent";
 
 export interface InputFormProps
 	extends Omit<
@@ -118,6 +118,7 @@ const InputForm = ({
 									state === "success",
 								"border-warning-500 hover:!border-warning-300 focus:!border-warning-500 dark:border-warning-500":
 									state === "warning",
+									"border-none text-center": state === "transparent",
 								"shadow-none disabled:cursor-not-allowed disabled:border-gray-200 disabled:bg-gray-100 disabled:text-gray-400 dark:disabled:border-gray-700 dark:disabled:bg-gray-800 dark:disabled:text-gray-600 dark:disabled:placeholder:text-gray-600":
 									disabled,
 								"bg-disabled-color/10 dark:!bg-disabled-color/10": readOnly,
