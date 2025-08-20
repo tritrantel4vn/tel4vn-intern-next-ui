@@ -1,0 +1,25 @@
+{
+	"templates_page": {
+		"title": "Message templates",
+		"brand_list": "List of Message Templates",
+		"brand": "Brand",
+		"content": "Template content",
+		"name": "Template name",
+		"search_placeholder": "Search message templates...",
+		"selected_brand": "{number} message templates selected",
+		"no_results": "No message templates match your search criteria.",
+		"description": "Template Description",
+		"add_new_template": "Add Message Template",
+		"search_brand": "Search Message Template",
+		"create": "Created at",
+		"add_template_modal": {
+			"title": "Add message template"
+		},
+		"delete_template_modal": {
+			"title": "Delete message template",
+			"message": "Are you sure you want to delete this message template? This action cannot be undone.",
+			"confirm_button": "Delete Message Template",
+			"cancel_button": "Cancel"
+		}
+	}
+}
