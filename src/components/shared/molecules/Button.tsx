@@ -173,7 +173,7 @@ const Button = ({
 		>
 			{state === "loading" ? (
 				<div className="mr-2">
-					<Loader className="animate-spin shrink-0" size={iconSize} />
+					<Loader className="shrink-0 animate-spin" size={iconSize} />
 				</div>
 			) : null}
 			{IconComponent && <IconComponent size={iconSize} />}

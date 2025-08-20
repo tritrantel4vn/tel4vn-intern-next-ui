@@ -8,12 +8,14 @@ export default getRequestConfig(async () => {
 	const manual = await import(`./locales/${locale}/manual.json`);
 		const brands = await import(`./locales/${locale}/brands.json`);
 	const components = await import(`./locales/${locale}/components.json`);
+	const templates = await import(`./locales/${locale}/templates.json`);
 
 	return {
 		locale,
 		messages: {
 			...common,
 			...brands,
+			...templates,
 			...manual,
 			...components,
 			

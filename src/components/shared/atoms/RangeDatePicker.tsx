@@ -66,15 +66,15 @@ const RangeDatePicker = ({ ref, className, onSelectDate }: RangeDatePickerProps)
 				<PopoverTrigger asChild>
 					<div
 						className={clsx(
-							"btn px-2.5 min-w-[15.5rem] bg-white border-gray-200 justify-between group",
-							"dark:border-surface-400/30 dark:hover:border-gray-600 dark:bg-gray-800",
+							"btn group min-w-[15.5rem] justify-between border-gray-200 bg-white px-2.5",
+							"dark:border-surface-400/30 dark:bg-gray-800 dark:hover:border-gray-600",
 							"hover:border-gray-300 hover:text-gray-800",
 							{ "text-muted-foreground": !date }
 						)}
 					>
-						<div className="flex items-center font-medium text-left text-gray-600 group-hover:text-gray-800 dark:text-gray-300 dark:group-hover:text-gray-100">
+						<div className="flex items-center text-left font-medium text-gray-600 group-hover:text-gray-800 dark:text-gray-300 dark:group-hover:text-gray-100">
 							<svg
-								className="fill-current text-gray-400 dark:text-gray-500 group-hover:text-gray-600 dark:group-hover:text-gray-100 ml-1 mr-2"
+								className="ml-1 mr-2 fill-current text-gray-400 group-hover:text-gray-600 dark:text-gray-500 dark:group-hover:text-gray-100"
 								width="16"
 								height="16"
 								viewBox="0 0 16 16"
@@ -89,7 +89,7 @@ const RangeDatePicker = ({ ref, className, onSelectDate }: RangeDatePickerProps)
 							<XCircle
 								size={14}
 								className={clsx(
-									"text-danger-400 dark:text-danger-500 hover:text-danger-600 dark:hover:text-danger-300",
+									"text-danger-400 hover:text-danger-600 dark:text-danger-500 dark:hover:text-danger-300",
 									{ invisible: !date?.from }
 								)}
 							/>
