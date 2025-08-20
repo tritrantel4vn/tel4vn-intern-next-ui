@@ -1,8 +1,8 @@
 "use client";
 
 import { apiGetBrands } from "@api/brand";
-//import { apiGetTemplate } from "@api/template";
-import { SMSReview } from "@components/shared/atoms";
+import { apiGetTemplates } from "@api/template";
+import { Chip, SMSReview } from "@components/shared/atoms";
 import { Button, SelectForm } from "@components/shared/molecules";
 import { BreadcrumbItem } from "@components/shared/atoms/Breadcrumb";
 import { DefaultPageLayout } from "@components/shared/templates";
@@ -13,6 +13,11 @@ import { useTranslations } from "next-intl";
 import { ChangeEvent, useCallback, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { nanoid } from "nanoid";
+import { SMSPreviewLight } from "@/public/images";
+import Image from "next/image";
+import { ColumnType, TableColumn } from "@type/component/table.type";
+import DataTable, { TableRow } from "@components/shared/organisms/DataTable";
+import { Plus, Trash2 } from "lucide-react";
 const ManualPage = () => {
 	interface TemplateOption extends SelectOption {
 		content: string;
@@ -33,12 +38,32 @@ const ManualPage = () => {
 		},
 	];
 
+	const TABLE_CUSTOMER_COLUMN: TableColumn<TableRow>[] = [
+		{
+			key: "phone",
+			dataType: ColumnType.TEXT,
+			label: "manual_page.phone",
+		},
+		{
+			key: "otp",
+			dataType: ColumnType.TEXT,
+			label: "manual_page.otp",
+		},
+		{
+			key: "number",
+			dataType: ColumnType.ACTION,
+			label: "manual_page.number",
+		},
+	];
+
 	//Hook
 	const t = useTranslations();
 
 	//State
 	const [brandOptions, setBrandOptions] = useState<SelectOption[]>([]);
 	const [brandId, setBrandIDs] = useState<string>("");
+	const [dataTable, setDataTable] = useState<TableRow[]>([]);
+	const [isLoading, setIsLoading] = useState<boolean>(true);
 	const [templateOptions, setTemplateOptions] = useState<TemplateOption[]>([]);
 	const [selectedTemplate, setSelectedTemplate] = useState<string>("");
 	const [templateContent, setTemplateContent] = useState<string>("");
@@ -101,19 +126,19 @@ const ManualPage = () => {
 			 * @param queryParams: TemplateQueryParams
 			 */
 
-			// const response = await apiGetTemplate(queryParams);
-			// if (response.code !== "OK") {
-			// 	toast.error(t("api.get.failed", { data: t("sending-manual_page.brand").toLowerCase() }));
-			// }
+			const response = await apiGetTemplates(queryParams);
+			if (response.code !== "OK") {
+				toast.error(t("api.get.failed", { data: t("manual_page.brand").toLowerCase() }));
+			}
 
-			// const filtered = response.data.filter((template) => template.brand_id === brandId);
-			// const options = filtered.map((template) => ({
-			// 	noTranslate: true,
-			// 	value: template.id,
-			// 	label: template.name,
-			// 	content: template.content,
-			// }));
-			// setTemplateOptions(options);
+			const filtered = response.data.filter((template) => template.brand_id === brandId);
+			const options = filtered.map((template) => ({
+				noTranslate: true,
+				value: template.id,
+				label: template.name,
+				content: template.content,
+			}));
+			setTemplateOptions(options);
 		} catch (error) {
 			toast.error(t("api.get.failed", { data: t("manual_page.brand").toLowerCase() }));
 		}
@@ -205,7 +230,6 @@ const ManualPage = () => {
 		variables.forEach((variable) => (newRow[variable] = ""));
 		setSendList([newRow]);
 	};
-
 	/**
 	 *
 	 * @param e React.FormEvent<HTMLFormElement>
@@ -223,6 +247,10 @@ const ManualPage = () => {
 
 		handleOnclickReset();
 	};
+
+	const handleOpenDeleteModal = useCallback((row: TableRow) => {
+		//
+	}, []);
 
 	return (
 		<DefaultPageLayout breadcrumbs={SENDING_MANUAL_BREADCRUMBS}>
@@ -255,17 +283,37 @@ const ManualPage = () => {
 					/>
 
 					{/* Area: Receiver Info Table */}
-					{/* {selectedTemplate && (
-						<ReceiverInfoTable
-							required
-							sendList={sendList}
-							templateVariables={templateVariables}
-							label="sending-manual_page.receiver_info"
-							setSendList={setSendList}
-							updateSendList={updateSendList}
-						/>
-					)} */}
+					{selectedTemplate && (
+						// <ReceiverInfoTable
+						// 	required
+						// 	sendList={sendList}
+						// 	templateVariables={templateVariables}
+						// 	label="sending-manual_page.receiver_info"
+						// 	setSendList={setSendList}
+						// 	updateSendList={updateSendList}
+						// />
 
+						<DataTable
+							id="brands-table"
+							showAction
+							data={dataTable}
+							showActionColumn
+							isLoading={isLoading}
+							columns={TABLE_CUSTOMER_COLUMN}
+							actionColumnOptions={[
+								{
+									label: "form.delete",
+									icon: <Trash2 size={16} />,
+									className: "text-danger-500",
+									onClick: handleOpenDeleteModal,
+								},
+							]}
+						/>
+					)}
+					<Button className="flex w-fit justify-start bg-primary-700">
+						<Plus size={16} />
+						Thêm người nhận
+					</Button>
 					{/* Area: Button */}
 					<div className="mt-10 flex justify-end gap-2">
 						<Button variant="danger" outline type="reset" onClick={handleOnclickReset}>
@@ -277,11 +325,11 @@ const ManualPage = () => {
 						</Button>
 					</div>
 				</div>
-				<div className="w-4/12">
+				<div className="relative">
 					{/* Area: SMS Review */}
 					<SMSReview
 						channel="SMS"
-						phoneNumber={sendList[0]?.phone}
+						phoneNumber={sendList[0]?.phone_number}
 						branchName={handleSelectBrandName()}
 						messageContent={handleGetParsedContent()}
 					/>

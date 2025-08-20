@@ -3,10 +3,10 @@
 		"title": "Sending manual",
 		"brand": "Brand",
         "template":"Template",
-		"channel": "Channel",
-		"add_brand_modal": {
-			"title": "Add brand"
-		},
+		"otp": "OTP",
+		"number":"Number",
+		"phone":"Phone number",
+		"channel":"Channel",
 		"delete_brand_modal": {
 			"title": "Delete brand",
 			"message": "Are you sure you want to delete this brand? This action cannot be undone.",

@@ -3,10 +3,10 @@
 		"title": "Gửi tin thủ công",
 		"brand": "Thương hiệu",
         "template": "Mẫu tin nhắn",
+		"phone": "Số điện thoại",
+		"number": "Số lượng",
 		"channel": "Kênh gửi",
-		"add_brand_modal": {
-			"title": "Add brand"
-		},
+		"otp": "OTP",
 		"delete_brand_modal": {
 			"title": "Delete brand",
 			"message": "Are you sure you want to delete this brand? This action cannot be undone.",

@@ -1,22 +1,22 @@
 "use client";
 
 import { apiCreateBrand, apiDeleteBrand, apiGetBrands, apiUpdateBrand } from "@api/brand";
+import { Button, ConfirmModal, Filter, Pagination } from "@components/shared/molecules";
+import { FilterItemConfig } from "@components/shared/molecules/FilterItem";
+import { Brand, BrandBody, BrandQueryParams } from "@type/api/brand.type";
 import AddBrandModal from "@components/non-shared/brands/AddBrandModal";
 import { ActionMenu, Chip, InputSearch } from "@components/shared/atoms";
 import { BreadcrumbItem } from "@components/shared/atoms/Breadcrumb";
-import { Button, ConfirmModal, Filter, Pagination } from "@components/shared/molecules";
-import { FilterItemConfig } from "@components/shared/molecules/FilterItem";
-import { DataTable } from "@components/shared/organisms";
-import { TableRow } from "@components/shared/organisms/DataTable";
-import { DefaultPageLayout } from "@components/shared/templates";
-import { ApiResponse } from "@type/api.type";
-import { Brand, BrandBody, BrandQueryParams } from "@type/api/brand.type";
 import { ColumnType, TableColumn } from "@type/component/table.type";
-import parse from "html-react-parser";
-import { RefreshCcw, SquarePen, Trash2 } from "lucide-react";
-import { useTranslations } from "next-intl";
+import { TableRow } from "@components/shared/organisms/DataTable";
 import { useCallback, useEffect, useMemo, useState } from "react";
+import { DefaultPageLayout } from "@components/shared/templates";
+import { RefreshCcw, SquarePen, Trash2 } from "lucide-react";
+import { DataTable } from "@components/shared/organisms";
+import { ApiResponse } from "@type/api.type";
+import { useTranslations } from "next-intl";
 import { toast } from "react-toastify";
+import parse from "html-react-parser";
 
 /**
  * Brands Page

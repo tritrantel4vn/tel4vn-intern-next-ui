@@ -87,7 +87,7 @@ const SMSReview = ({ channel, branchName, messageContent, phoneNumber }: SMSRevi
 								</>
 							)}
 							<div className="absolute left-1 top-[140px]">
-								<div className="scrollbar-hide flex h-[630px] w-[392px] flex-col items-center gap-2 overflow-y-auto bg-slate-200">
+								<div className="flex h-[630px] w-[392px] flex-col items-center gap-2 overflow-y-auto bg-slate-200 scrollbar-hide">
 									{/* Area: Header section */}
 									<div className="mt-10 !flex h-fit w-[352px] justify-center rounded-xl bg-white px-1 py-3 dark:bg-surface-800">
 										<div className="flex items-center justify-end">
