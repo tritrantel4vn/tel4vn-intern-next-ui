@@ -1,4 +1,4 @@
-import BrandsPage from "@components/shared/pages/brands/BrandsPage";
+import ManualPage from "@components/shared/pages/manual/ManualPage";
 
 export const metadata = {
 	title: "SNS - Brands",
@@ -10,7 +10,7 @@ export const metadata = {
  * @path /brands
  */
 const Brands = () => {
-	return <BrandsPage />;
+	return <ManualPage />;
 };
 
 export default Brands;

@@ -21,6 +21,7 @@ import { toast } from "react-toastify";
 /**
  * Brands Page
  */
+
 const BrandsPage = () => {
 	// Constants
 	const BRANDS_BREADCRUMBS: BreadcrumbItem[] = [
