@@ -1,23 +1,21 @@
 "use client";
-
+import { nanoid } from "nanoid";
+import { toast } from "react-toastify";
 import { apiGetBrands } from "@api/brand";
+import { Plus, Trash2 } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { apiGetTemplates } from "@api/template";
-import { Chip, SMSReview } from "@components/shared/atoms";
-import { Button, SelectForm } from "@components/shared/molecules";
-import { BreadcrumbItem } from "@components/shared/atoms/Breadcrumb";
-import { DefaultPageLayout } from "@components/shared/templates";
+import { SelectOption } from "@type/common.type";
+import { SMSReview } from "@components/shared/atoms";
 import { BrandQueryParams } from "@type/api/brand.type";
 import { TemplateQueryParams } from "@type/api/template.type";
-import { SelectOption } from "@type/common.type";
-import { useTranslations } from "next-intl";
-import { ChangeEvent, useCallback, useEffect, useState } from "react";
-import { toast } from "react-toastify";
-import { nanoid } from "nanoid";
-import { SMSPreviewLight } from "@/public/images";
-import Image from "next/image";
+import { DefaultPageLayout } from "@components/shared/templates";
+import { Button, SelectForm } from "@components/shared/molecules";
 import { ColumnType, TableColumn } from "@type/component/table.type";
+import { ChangeEvent, useCallback, useEffect, useState } from "react";
+import { BreadcrumbItem } from "@components/shared/atoms/Breadcrumb";
 import DataTable, { TableRow } from "@components/shared/organisms/DataTable";
-import { Plus, Trash2 } from "lucide-react";
+
 const ManualPage = () => {
 	interface TemplateOption extends SelectOption {
 		content: string;
@@ -72,15 +70,16 @@ const ManualPage = () => {
 		{ _id: nanoid(), phone_number: "" },
 	]);
 
+	/**
+	 * handlers
+	 */
 	const handleSelectBrandName = () => {
 		const selectedBrand = brandOptions.find((b) => b.value === brandId);
 		const selectedBrandName = selectedBrand?.label || "";
 		return selectedBrandName;
 	};
 
-	/**
-	 * handle Get Brands
-	 */
+	// handle get brands
 	const handleGetBrands = useCallback(async () => {
 		try {
 			const queryParams: BrandQueryParams = {
@@ -112,9 +111,7 @@ const ManualPage = () => {
 		handleGetBrands();
 	}, []);
 
-	/**
-	 * Handle Get Templates
-	 */
+	//  Handle Get Templates
 	const handleGetTemplates = async () => {
 		try {
 			const queryParams: TemplateQueryParams = {
@@ -150,9 +147,8 @@ const ManualPage = () => {
 		}
 	}, [brandId]);
 
-	/**
-	 * Handle On Click Reset
-	 */
+	//Handle On Click Reset
+
 	const handleOnclickReset = () => {
 		setBrandIDs("");
 		setSelectedTemplate("");
@@ -231,7 +227,6 @@ const ManualPage = () => {
 		setSendList([newRow]);
 	};
 	/**
-	 *
 	 * @param e React.FormEvent<HTMLFormElement>
 	 * @returns
 	 */
@@ -283,7 +278,7 @@ const ManualPage = () => {
 					/>
 
 					{/* Area: Receiver Info Table */}
-					{selectedTemplate && (
+					{/* {selectedTemplate && (
 						// <ReceiverInfoTable
 						// 	required
 						// 	sendList={sendList}
@@ -309,7 +304,7 @@ const ManualPage = () => {
 								},
 							]}
 						/>
-					)}
+					)} */}
 					<Button className="flex w-fit justify-start bg-primary-700">
 						<Plus size={16} />
 						Thêm người nhận
